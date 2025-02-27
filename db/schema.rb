@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_052454) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_27_053431) do
   create_table "commodities", force: :cascade do |t|
     t.string "name", collation: "NOCASE"
-    t.integer "price"
+    t.integer "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_commodities_on_name", unique: true
+  end
+
+  create_table "commodity_adjustments", force: :cascade do |t|
+    t.integer "commodity_id", null: false
+    t.integer "price_change", null: false
+    t.integer "adjusted_price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commodity_id"], name: "index_commodity_adjustments_on_commodity_id"
   end
 
   create_table "commodity_ownerships", force: :cascade do |t|
@@ -49,6 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_052454) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "commodity_adjustments", "commodities"
   add_foreign_key "commodity_ownerships", "commodities"
   add_foreign_key "commodity_ownerships", "users"
   add_foreign_key "commodity_transactions", "commodities"

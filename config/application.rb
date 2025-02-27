@@ -30,6 +30,6 @@ module StocktickerApi
     config.api_only = true
 
     # Testing Smesting
-    config.generators.test_framework false
+    config.generators.test_framework nil
   end
 end

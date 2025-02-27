@@ -3,8 +3,8 @@ class CommodityTransaction < ApplicationRecord
   TYPE_PURCHASE = "purchase".freeze
   TYPES = [TYPE_SALE, TYPE_PURCHASE].freeze
 
-  belongs_to :commodity, required: true
-  belongs_to :user, required: true
+  belongs_to :commodity
+  belongs_to :user
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :price, presence: true, numericality: { greater_than: 0 }

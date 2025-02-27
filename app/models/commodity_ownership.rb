@@ -1,6 +1,6 @@
 class CommodityOwnership < ApplicationRecord
-  belongs_to :commodity, required: true
-  belongs_to :user, required: true
+  belongs_to :commodity
+  belongs_to :user
 
   validates :commodity_id, uniqueness: { scope: :user_id }
   validates :quantity, presence: true, numericality: { greater_than_eq: 0 }
