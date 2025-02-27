@@ -1,0 +1,1 @@
+json.(@commodity, :name, :price)
