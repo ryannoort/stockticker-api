@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_050012) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_27_052454) do
   create_table "commodities", force: :cascade do |t|
     t.string "name", collation: "NOCASE"
     t.integer "price"
@@ -29,6 +29,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_050012) do
     t.index ["user_id"], name: "index_commodity_ownerships_on_user_id"
   end
 
+  create_table "commodity_transactions", force: :cascade do |t|
+    t.integer "commodity_id", null: false
+    t.integer "user_id", null: false
+    t.integer "quantity", null: false
+    t.integer "price", null: false
+    t.string "transaction_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commodity_id"], name: "index_commodity_transactions_on_commodity_id"
+    t.index ["user_id"], name: "index_commodity_transactions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false, collation: "NOCASE"
     t.string "password_digest", null: false
@@ -39,4 +51,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_050012) do
 
   add_foreign_key "commodity_ownerships", "commodities"
   add_foreign_key "commodity_ownerships", "users"
+  add_foreign_key "commodity_transactions", "commodities"
+  add_foreign_key "commodity_transactions", "users"
 end
