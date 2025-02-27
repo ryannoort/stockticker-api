@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_031522) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_27_050012) do
   create_table "commodities", force: :cascade do |t|
     t.string "name", collation: "NOCASE"
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_commodities_on_name", unique: true
+  end
+
+  create_table "commodity_ownerships", force: :cascade do |t|
+    t.integer "commodity_id", null: false
+    t.integer "user_id", null: false
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commodity_id"], name: "index_commodity_ownerships_on_commodity_id"
+    t.index ["user_id"], name: "index_commodity_ownerships_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -26,4 +36,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_031522) do
     t.datetime "updated_at", null: false
     t.index ["username"], name: "index_users_on_username", unique: true
   end
+
+  add_foreign_key "commodity_ownerships", "commodities"
+  add_foreign_key "commodity_ownerships", "users"
 end
